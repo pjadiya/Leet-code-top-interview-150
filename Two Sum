@@ -1,0 +1,26 @@
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        # sol 1
+        ans = []
+        # for i in range(len(nums)):
+        #     for j in range(i+1, len(nums),1):
+        #         if nums[i]+nums[j]==target:
+        #             ans= [i,j]
+        #             break
+        # return ans
+        # sol 2
+
+        # hashing hash_[nums[i]] =i
+        hash_ = dict()
+        for i in range(len(nums)):
+            hash_[nums[i]]= i
+
+        for i in range(len(nums)):
+            j= hash_.get(target-nums[i])
+            if j!=None and i!=j:
+                ans = [i,j]
+                break
+        return ans
+
+        
+        
