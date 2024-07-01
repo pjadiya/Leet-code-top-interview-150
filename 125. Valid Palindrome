@@ -1,0 +1,26 @@
+class Solution:
+    def isPalindrome(self, s: str) -> bool:
+## sol 1
+        # n = len(s)
+        # string =str()
+        # for i in range(n):
+        #     if s[i].isalnum():
+        #         string+= s[i]
+        
+        # m = len(string)
+        # j=m-1
+        # string=string.lower()
+        # if m==1:
+        #     return False
+        # for i in range(m//2):
+        #     if string[i]==string[j]:
+        #         j-=1
+        #     else:
+        #         return False
+        # return True
+##sol 2
+        s = [c.lower() for c in s if c.isalnum()]
+        return all (s[i] == s[~i] for i in range(len(s)//2))
+
+
+        
