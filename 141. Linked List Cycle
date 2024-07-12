@@ -1,0 +1,37 @@
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution:
+    # method 1 set hashing approach
+    def hasCycle(self, head: Optional[ListNode]) -> bool:
+        stack = set()
+        cur = head
+        if not head:
+            return False 
+        while cur:
+            if cur in stack:
+                return True
+            stack.add(cur)
+            cur= cur.next
+        return False
+    # method 2 two pointers approach
+    def hasCycle(self, head: Optional[ListNode]) -> bool:
+        stack = set()
+        if not head:
+            return False 
+        slow = head
+        fast = slow.next
+        while fast and fast.next:
+            if slow== fast:
+                return True
+            slow= slow.next
+            fast = fast.next.next
+        return False
+
+
+        
+
+        
