@@ -1,0 +1,26 @@
+class Solution:
+    def canConstruct(self, ransomNote: str, magazine: str) -> bool:
+        # # method 1
+        # hash_map = {}
+        # for s in magazine:
+        #     hash_map[s]= hash_map.get(s,0)+1
+        
+        # for i in ransomNote:
+        #     a = hash_map.get(i,0)
+        #     if a ==0:
+        #         return False
+        #     hash_map[i]= hash_map.get(i,0)-1
+        # # method 2
+        for mag in ransomNote:
+            if mag in magazine:
+                magazine = magazine.replace(mag,'',1)
+            else:
+                return False
+        return True
+        
+
+            
+
+        return True
+
+        
