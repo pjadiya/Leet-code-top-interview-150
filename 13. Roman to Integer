@@ -1,0 +1,18 @@
+class Solution:
+    def romanToInt(self, s: str) -> int:
+        Num = [1000,900,500,400,100,90,50,40,10,9,5,4,1]
+        Roman =['M','CM','D','CD','C','XC','L','XL','X','IX','V','IV','I']
+        ans = 0
+        
+        for k in range(len(Num)):
+            while i < range(len(s)):
+                if Roman[k]==s[i] :
+                    ans+= Num[k]
+                    i+=1
+                elif Roman[k]==s[i]+s[i+1]:
+                    ans+= Num[k]
+                    i+=2
+                else:
+                    break
+
+        
