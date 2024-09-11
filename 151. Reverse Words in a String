@@ -1,0 +1,15 @@
+class Solution:
+    def reverseWords(self, s: str) -> str:
+        result = ''
+        i = 0
+        temp=''
+        while i<len(s):
+            if s[i] !=' ':
+                temp+=s[i]
+            elif temp!='':
+                result = ' '+temp+result
+                temp=''
+            i+=1
+        if temp!='':
+            result = ' '+temp+result
+        return result.lstrip()
