@@ -1,0 +1,25 @@
+class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        nums.sort()
+        n= len(nums)
+        result = []
+        i=0
+        for i in range(n-2):
+            if i>0 and nums[i]==nums[i-1]:
+                continue
+            j=i+1
+            k=n-1
+            temp = 0-nums[i]
+            while j<k:
+                temp2 = nums[j]+nums[k] 
+                if temp2>temp:
+                    k-=1
+                elif temp2<temp:
+                    j+=1
+                elif temp2==temp:
+                    result.append([nums[i], nums[j], nums[k]])
+                    j+=1
+                    while nums[j]==nums[j-1] and j<k:
+                        j+=1
+
+        return result                    
