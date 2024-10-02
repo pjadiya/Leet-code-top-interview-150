@@ -1,0 +1,20 @@
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        preMap = {i: [] for i in range(numCourses)}
+        for crs, pre in prerequisites:
+            preMap[crs].append(pre)
+        vis = set()
+        
+        def dfs(node, preMap,vis):
+            if node in vis: return False
+            if preMap[node]==[]: return True
+            vis.add(node)
+            for ngh in preMap[node]:
+                if not dfs(ngh, preMap,vis): return False
+            vis.remove(node)
+            preMap[node]=[]
+            return True
+
+        for i in range(numCourses):
+            if not dfs(i,preMap,vis): return False
+        return True
