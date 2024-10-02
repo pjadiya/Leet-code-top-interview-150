@@ -1,0 +1,29 @@
+class Solution:
+    def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
+        preMap = {i: [] for i in range(numCourses)}
+        for crs, pre in prerequisites:
+            preMap[crs].append(pre)
+        vis = set()
+        
+        def dfs(node, preMap,vis,res,tempvis):
+            # print(node, preMap[node],vis)
+            if node in tempvis: return False
+            if preMap[node]==[]:
+                if node not in vis:
+                    res.append(node)
+                    vis.add(node)
+                return True
+            
+            tempvis.add(node)
+            for ngh in preMap[node]:
+                if not dfs(ngh, preMap,vis,res,tempvis): return False
+            tempvis.remove(node)
+            res.append(node)
+            vis.add(node)
+            preMap[node]=[]
+            return True
+        res=[]
+        tempvis =set()
+        for i in range(numCourses):
+            if not dfs(i,preMap,vis,res,tempvis): return []
+        return res
