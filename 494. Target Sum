@@ -1,0 +1,25 @@
+class Solution:
+    def findTargetSumWays(self, nums: List[int], target: int) -> int:
+        range_ = sum(nums)
+        if(target+range_<0): return 0
+        if (target > range_ or (range_ + target) % 2 != 0):
+            return 0
+        target_sum = (target+range_)//2
+        
+        t = [[0 for j in range(target_sum+1)] for i in range(len(nums)+1)]
+        for i in range(len(nums) + 1):
+            for j in range(target_sum + 1):
+                if i==0:
+                    t[0][j]=0
+                if j==0:
+                    t[i][0]=1
+                elif nums[i - 1] > j or nums[i-1]==0:
+                    t[i][j] = t[i - 1][j]
+                elif nums[i - 1] <= j:
+                    t[i][j] = t[i-1][j]+t[i-1][j-nums[i-1]]
+
+        zeroes =0
+        for i in nums:
+            if i==0:
+                zeroes+=1
+        return t[len(nums)][target_sum]*(pow(2,zeroes))
