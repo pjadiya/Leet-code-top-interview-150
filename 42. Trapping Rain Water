@@ -1,0 +1,23 @@
+class Solution:
+    def trap(self, height: List[int]) -> int:
+        '''
+        starting from 1 index
+        find min(max left and max right) for each index till n-2
+        and subtract its own h and if it is +ve add to the count        
+        '''
+        n= len(height)
+        l = 0
+        r=n-1
+        mxr = height[r]
+        mxl = height[l]
+        water =0 
+        while l<r:
+            if height[l]<=height[r]:
+                mxl = max(mxl,height[l])
+                water += (mxl-height[l])
+                l+=1
+            else:
+                mxr = max(mxr, height[r])
+                water += (mxr-height[r])
+                r-=1
+        return water
