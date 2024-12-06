@@ -1,0 +1,57 @@
+method 1: 2 pointers
+class Solution:
+    def longestPalindrome(self, s: str) -> str:
+        i=1
+        j=0
+        n=len(s)
+        ans =s[0]
+        if n==1:
+            return s
+        while i<n:
+            t_i=i
+            t_j=j
+            t_ans=''
+            if i==j:
+                t_ans=s[i]
+                t_j-=1
+                t_i+=1
+            while t_j>=0 and t_i<n:
+                # print(t_i,t_j,n)
+                if s[t_i]==s[t_j]:
+                    t_ans = s[t_i]+t_ans+s[t_j]
+                    t_j-=1
+                    t_i+=1
+                else:
+                    break
+
+            if len(t_ans)>len(ans):
+                ans=t_ans
+            if i==j:
+                i+=1
+            else:
+                j+=1
+        return ans
+
+
+method 2: DP
+class Solution:
+    def Ispali(self, s,i,j,dp):
+        if i>=j:
+            return True
+        if dp[i][j]!=-1:
+            return dp[i][j]
+        if s[i]!=s[j]:
+            return False
+        dp[i][j]= self.Ispali(s,i+1,j-1,dp)
+        return dp[i][j]
+    def longestPalindrome(self, s: str) -> str:
+        n = len(s)
+        dp = [[-1 for i in range(n+1)] for _ in range(n+1)]
+        res =''
+        for i in range(n):
+            for j in range(i,n,1):
+                if s[i]==s[j] and self.Ispali(s,i+1,j-1,dp):
+                    if (j-i+1)>len(res):
+                        res = s[i:j+1]
+
+        return res
