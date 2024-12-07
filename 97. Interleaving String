@@ -1,0 +1,41 @@
+class Solution:
+    def isInterleave(self, s1: str, s2: str, s3: str) -> bool:
+        # 3d dp
+        #  3 pointers i,j,k
+        #  start with i==j==k==0 and check 
+        #  if s1.i==s3.k and s2.j!=s3.k -> i+=1, k+=1 and dp[i][j][k]=1
+        #  if s2.j==s3.k and s1.i!=s3.k -> j+=1, k+=1 and dp[i][j][k]=1
+        #  if s1.i==s3.k and s2.j==s3.k -> i+=1, k+=1 and dp[i][j][k]=1 and dp[i][]
+        l= len(s1)
+        m= len(s2)
+        n= len(s3)
+        i,j,k =0,0,0
+        dp=[[[-1 for k in range(n+1) ] for j in range(m+1)] for i in range(l+1)]
+        def dp_util(dp,i, j, k):
+            if dp[i][j][k]!=-1:
+                return dp[i][j][k]
+            if i==j==k==0:
+                dp[i][j][k]=True
+            elif i==j==0 or k==0:
+                dp[i][j][k]=False
+            elif i==0:
+                if s2[:j]==s3[:k]:
+                    dp[i][j][k]=True
+                else:
+                    dp[i][j][k]=False
+            elif j==0:
+                if s1[:i]==s3[:k]:
+                    dp[i][j][k]=True
+                else:
+                    dp[i][j][k]=False
+            elif s1[i-1]==s3[k-1] and s2[j-1]==s3[k-1]:
+                dp[i][j][k]=dp_util(dp,i-1,j,k-1) or dp_util(dp,i,j-1,k-1)
+            elif s1[i-1]==s3[k-1]: 
+                dp[i][j][k]=dp_util(dp,i-1,j,k-1)
+            elif s2[j-1]==s3[k-1]:
+                dp[i][j][k]=dp_util(dp,i,j-1,k-1)
+            else:
+                dp[i][j][k]=False
+            return dp[i][j][k]
+        return dp_util(dp,l,m,n)
+        
