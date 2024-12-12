@@ -1,0 +1,18 @@
+class Solution:
+    def isHappy(self, n: int) -> bool:
+        cache = {}
+        count=0
+        while count<1e5:
+            if n==1:
+                return True
+            if n in cache:
+                return False
+            tn= str(n)
+            m=len(tn)
+            ans=0
+            for i in range(m):
+                ans+=int(tn[i])**2
+            cache[n]=ans
+            n=ans
+            count+=1
+        return False
