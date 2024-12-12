@@ -1,0 +1,9 @@
+class Solution:
+    def trailingZeroes(self, n: int) -> int:
+        div=5
+        ans=0
+        while div<10000:
+            ans+=n//div
+            div*=5
+        return ans
+        
