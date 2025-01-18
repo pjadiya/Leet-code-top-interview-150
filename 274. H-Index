@@ -1,0 +1,12 @@
+class Solution:
+    def hIndex(self, citations: List[int]) -> int:
+        papers=len(citations)
+        citation_bucket = [0]*(papers+1)
+
+        for i in range(papers):
+            citation_bucket[min(citations[i], papers)]+=1
+        cum_sum=0
+        for h_index in range(papers,-1,-1):
+            cum_sum+=citation_bucket[h_index]
+            if h_index<=cum_sum:
+                return h_index
